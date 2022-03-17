@@ -1,0 +1,10 @@
+#!/bin/sh
+./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <x.bin >y.dat 2>log0
+diff y.dat y.bin
+./count -b 0 -e 1024 -6 >INPUT.dat
+./toeplitz -v -n 256 -l 128 -m m64.dat <INPUT.dat >OUT1.dat 2>log1
+diff OUT1.dat OUT.ref
+./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <INPUT.dat >OUT2.dat 2>log2
+diff OUT2.dat OUT.ref
+./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat -i INPUT.dat -o OUT3.dat 2>log3
+diff OUT3.dat OUT.ref
