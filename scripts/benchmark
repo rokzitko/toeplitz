@@ -1,0 +1,4 @@
+#!/bin/bash
+# Benchmarking of toeplitz extractor performance
+# On spinon, 8.8MB/s
+dd if=/dev/zero bs=100M count=1 | ./toeplitz -n 256 -l 128 -R >/dev/null

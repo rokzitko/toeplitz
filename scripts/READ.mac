@@ -1,0 +1,4 @@
+#!/bin/sh
+# For MacOS; works on Mac mini
+# brew install netcat
+netcat 192.168.2.170 555 >READ.dat

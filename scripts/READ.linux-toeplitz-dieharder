@@ -1,0 +1,4 @@
+#!/bin/sh
+# For Linux (ws, fritz)
+# Read raw stream of random numbers, extract randomness, calculate statistics
+ncat --recv-only 192.168.2.170 555 | ./toeplitz -n 256 -l 128 -R | dieharder -a -g 200 | tee report

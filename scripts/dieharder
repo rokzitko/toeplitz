@@ -1,0 +1,2 @@
+#!/bin/bash
+dieharder -a -g 201 -f READ.dat | tee dieharder.report

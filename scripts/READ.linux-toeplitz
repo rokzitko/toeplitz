@@ -1,0 +1,4 @@
+#!/bin/sh
+# For Linux (ws, fritz)
+# Read directly into toeplitz extractor
+ncat --recv-only 192.168.2.170 555 | ./toeplitz -n 256 -l 128 -R >TOEPL.dat
