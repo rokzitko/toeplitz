@@ -1,0 +1,12 @@
+#!/bin/sh
+# Run this on spinon
+
+export ROOT=/share/apps/Quartus/intelFPGA_lite/19.1/
+export QUARTUS_ROOTDIR=$ROOT/quartus
+$QUARTUS_ROOTDIR/adm/qenv.sh
+export PATH=$PATH:$ROOT/modelsim_ase/bin:$QUARTUS_ROOTDIR/bin
+
+rm -rf work
+vlib work
+vlog tb_ser.sv serializer.sv
+vsim -c -do "run -all" tb_ser

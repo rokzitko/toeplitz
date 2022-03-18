@@ -1,0 +1,4 @@
+#!/bin/sh
+rm -f tb_ser
+iverilog -g2012 -o tb_ser tb_ser.sv serializer.sv
+vvp tb_ser
