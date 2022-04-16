@@ -4,7 +4,9 @@
 module gencol #(
  parameter BS = 64,
  parameter N = 256,
- parameter L = 128
+ parameter L = 128,
+ parameter STRIDE = 1,
+ parameter INDEX = 1
 )
 (
 input clk,
@@ -22,14 +24,14 @@ logic [N-1:0] row;
 integer cnt;
 
 always @(posedge clk) begin
-  if (reset || cnt == N-1) begin
+  if (reset || cnt == N-STRIDE) begin
     col <= col0;
     row <= row0;
     cnt <= 0;
   end else begin
-    col <= { row[N-1], col[L-1:1] };
-    row <= row << 1;
-    cnt <= cnt+1;
+    col <= { row[N-1:N-STRIDE], col[L-STRIDE:STRIDE] };
+    row <= row << STRIDE;
+    cnt <= cnt+STRIDE;
   end
 end
 
