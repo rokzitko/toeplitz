@@ -21,12 +21,11 @@ logic [BS-1:0] c [0:YSZ-1];
 logic [N-1:0] row0;
 
 initial begin
-  integer i;
   $readmemh("c64-hex.dat", c);
   $readmemh("r64-hex.dat", r);
   row0 = {>>{r}} << 1; // shift one immediately, because already in 'col'
   col0 = {>>{c}};
-  for (i = 0; i < N; i = i+1) begin
+  for (int i = 0; i < N; i = i+1) begin
     rrow0[i] = row0[N-1-i];
   end
 end
