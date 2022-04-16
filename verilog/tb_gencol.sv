@@ -45,6 +45,11 @@ end
 `define INST1
 `define INST2
 `define INST3
+`define INST4
+`define INST5
+`define INST6
+`define INST7
+`define CHECKS
 
 `ifdef INST1
 logic [L-1:0] col1;
@@ -103,8 +108,83 @@ initial begin
 end
 `endif
 
-`ifdef INST1
-`ifdef INST2
+`ifdef INST4
+logic [L-1:0] col4;
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(2), .INDEX(1)) gencol_inst4 (.clk, .reset, .row0, .rrow0, .col0, .col(col4));
+
+`ifdef VERBOSE
+always @(posedge clk) begin
+  #0.01;
+  $display("t=%t col4=%b cnt=%d", $time, col4, gencol_inst4.cnt);
+end
+`endif
+
+initial begin
+  #299; @(posedge clk); #0.01;
+  $display("t=%t col4=%b cnt=%d", $time, col4, gencol_inst4.cnt);
+  assert(gencol_inst4.cnt == 87);
+  assert(col4 == 128'b11101111110000010100110111110001110111001101000000110010000000100110000101001010001110000000010001100110011010001100000010111010);
+end
+`endif
+
+`ifdef INST5
+logic [L-1:0] col5;
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(1)) gencol_inst5 (.clk, .reset, .row0, .rrow0, .col0, .col(col5));
+
+`ifdef VERBOSE
+always @(posedge clk) begin
+  #0.01;
+  $display("t=%t col5=%b cnt=%d", $time, col5, gencol_inst5.cnt);
+end
+`endif
+
+initial begin
+  #299; @(posedge clk); #0.01;
+  $display("t=%t col5=%b cnt=%d", $time, col5, gencol_inst5.cnt);
+  assert(gencol_inst5.cnt == 173);
+  assert(col5 == 128'b01101000011110110101111011011001000101101111010001100101000010011011011010011101001111111011111100000101001101111100011101110011);
+end
+`endif
+
+`ifdef INST6
+logic [L-1:0] col6;
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(2)) gencol_inst6 (.clk, .reset, .row0, .rrow0, .col0, .col(col6));
+
+`ifdef VERBOSE
+always @(posedge clk) begin
+  #0.01;
+  $display("t=%t col6=%b cnt=%d", $time, col6, gencol_inst6.cnt);
+end
+`endif
+
+initial begin
+  #299; @(posedge clk); #0.01;
+  $display("t=%t col6=%b cnt=%d", $time, col6, gencol_inst6.cnt);
+  assert(gencol_inst6.cnt == 174);
+  assert(col6 == 128'b00110100001111011010111101101100100010110111101000110010100001001101101101001110100111111101111110000010100110111110001110111001);
+end
+`endif
+
+`ifdef INST7
+logic [L-1:0] col7;
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(3)) gencol_inst7 (.clk, .reset, .row0, .rrow0, .col0, .col(col7));
+
+`ifdef VERBOSE
+always @(posedge clk) begin
+  #0.01;
+  $display("t=%t col7=%b cnt=%d", $time, col7, gencol_inst7.cnt);
+end
+`endif
+
+initial begin
+  #299; @(posedge clk); #0.01;
+  $display("t=%t col7=%b cnt=%d", $time, col7, gencol_inst7.cnt);
+  assert(gencol_inst7.cnt == 175);
+  assert(col7 == 128'b00011010000111101101011110110110010001011011110100011001010000100110110110100111010011111110111111000001010011011111000111011100);
+end
+`endif
+
+`ifdef CHECKS
 `define CHECK(N,INST1,INST2) \
 initial begin \
   logic [L-1:0] ref1; \
@@ -125,7 +205,11 @@ end
 `CHECK(8,1,3)
 `CHECK(16,1,2)
 `CHECK(16,1,3)
-`endif
+`CHECK(3,1,4)
+`CHECK(17,1,4)
+`CHECK(17,1,5)
+`CHECK(18,1,6)
+`CHECK(19,1,7)
 `endif
 
 endmodule: tb_gencol

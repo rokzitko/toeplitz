@@ -26,10 +26,13 @@ logic [N-1:0] rrow;
 integer cnt;
 
 always @(posedge clk) begin
-  if (reset || cnt == N-STRIDE) begin
-    col <= col0;
+  if (reset || cnt == N-STRIDE+INDEX) begin
+    if (INDEX == 0)
+      col <= col0;
+    else
+      col <= { rrow0[(INDEX>0 ? INDEX-1 : INDEX):0], col0[L-1:INDEX] };
     rrow <= rrow0 >> INDEX;
-    cnt <= 0;
+    cnt <= INDEX;
   end else begin
 //    $display("t=%t rrow=%b", $time, rrow);
     col <= { rrow[STRIDE-1:0], col[L-1:STRIDE] };
