@@ -63,7 +63,7 @@ task load(input string fn);
 `ifdef DEBUG
   $display("time=%t xx=%b", $time, xx);
 `endif
-  #128; // 256/WIDTH
+  #(N/WIDTH);
 endtask
 
 initial begin
