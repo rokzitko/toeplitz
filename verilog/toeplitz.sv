@@ -1,14 +1,16 @@
 // Toeplitz extractor, top level module
 // Rok Zitko, March 2022
 
+`default_nettype none
+
 module toeplitz #(
  parameter BS = 64,
  parameter N = 256,
  parameter L = 128
 )
 (
-input clk,
-input reset,
+input wire clk,
+input wire reset,
 input wire data,
 output reg [L-1:0] q,
 output reg qstrobe // pulsed when q updated
@@ -18,11 +20,12 @@ parameter XSZ = N/BS;
 parameter YSZ = L/BS;
 
 logic [N-1:0] row0;
+logic [N-1:0] rrow0;
 logic [L-1:0] col0;
-readrc #(.BS(BS), .N(N), .L(L)) readrc_inst(.row0, .col0);
+readrc #(.BS(BS), .N(N), .L(L)) readrc_inst(.row0, .rrow0, .col0);
 
 logic [L-1:0] col;
-gencol #(.BS(BS), .N(N), .L(L)) gencol_inst (.clk, .reset, .row0, .col0, .col);
+gencol #(.BS(BS), .N(N), .L(L)) gencol_inst (.clk, .reset, .row0, .rrow0, .col0, .col);
 
 reg [L-1:0] y;
 reg [L-1:0] ynew;

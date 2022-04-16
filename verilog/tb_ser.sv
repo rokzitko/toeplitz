@@ -1,6 +1,8 @@
 // Testbench for serializer
 // Rok Zitko, March 2022
 
+`default_nettype none
+
 timeunit 1ns;
 timeprecision 100fs;
 

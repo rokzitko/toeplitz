@@ -1,6 +1,10 @@
 // Testbench for Toeplitz extractor
 // Rok Zitko, March 2022
 
+`default_nettype none
+
+//`define VERBOSE
+
 timeunit 1ns;
 timeprecision 100fs;
 
@@ -64,10 +68,14 @@ end
 // Output checking
 task check(input string fn);
   logic [BS-1:0] y [0:YSZ-1];
-  wait(qstrobe == 1); 
+  wait(qstrobe == 1);
   @(posedge clk);
   $display("time=%t", $time);
   $readmemh(fn, y);
+`ifdef VERBOSE
+  $display("q=%b", q);
+  $display("y=%b", {>>{y}});
+`endif
   assert(q == {>>{y}});
   #1;
 endtask

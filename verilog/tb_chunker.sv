@@ -1,6 +1,10 @@
 // Testbench for chunker
 // Rok Zitko, March 2022
 
+`default_nettype none
+
+//`define VERBOSE
+
 timeunit 1ns;
 timeprecision 100fs;
 
@@ -63,8 +67,10 @@ initial begin
   end
 end
 
+`ifdef VERBOSE
 always @(posedge clk) begin
   $display("t=%t data_in=%b q=%b valid=%b", $time, data_in, q, valid);
 end
+`endif
 
 endmodule: tb_chunker
