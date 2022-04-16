@@ -9,5 +9,5 @@ export LM_LICENSE_FILE=$ROOT/LR-075080_License.dat
 
 rm -rf work
 vlib work
-vlog tb.sv toeplitz.sv getcol.sv readrc.sv serializer.sv
+vlog tb.sv toeplitz.sv gencol.sv readrc.sv serializer.sv
 vsim -c -do "run -all" tb
