@@ -62,7 +62,9 @@ end
 
 initial begin
   #299; @(posedge clk); #0.01;
+`ifdef VERBOSE
   $display("t=%t col1=%b cnt=%d", $time, col1, gencol_inst1.cnt);
+`endif
   assert(gencol_inst1.cnt == 43);
   assert(col1 == 128'b00000011001000000010011000010100101000111000000001000110011001101000110000001011101001001000110011011000010110111101001011100100);
 end
@@ -81,7 +83,9 @@ end
 
 initial begin
   #299; @(posedge clk); #0.01;
+`ifdef VERBOSE
   $display("t=%t col2=%b cnt=%d", $time, col2, gencol_inst2.cnt);
+`endif
   assert(gencol_inst2.cnt == 86);
   assert(col2 == 128'b11011111100000101001101111100011101110011010000001100100000001001100001010010100011100000000100011001100110100011000000101110100);
 end
@@ -100,7 +104,9 @@ end
 
 initial begin
   #299; @(posedge clk); #0.01;
+`ifdef VERBOSE
   $display("t=%t col3=%b cnt=%d", $time, col3, gencol_inst3.cnt);
+`endif
   assert(gencol_inst3.cnt == 172);
   assert(col3 == 128'b11010000111101101011110110110010001011011110100011001010000100110110110100111010011111110111111000001010011011111000111011100110);
 end
@@ -119,7 +125,9 @@ end
 
 initial begin
   #299; @(posedge clk); #0.01;
+`ifdef VERBOSE
   $display("t=%t col4=%b cnt=%d", $time, col4, gencol_inst4.cnt);
+`endif
   assert(gencol_inst4.cnt == 87);
   assert(col4 == 128'b11101111110000010100110111110001110111001101000000110010000000100110000101001010001110000000010001100110011010001100000010111010);
 end
@@ -138,7 +146,9 @@ end
 
 initial begin
   #299; @(posedge clk); #0.01;
+`ifdef VERBOSE
   $display("t=%t col5=%b cnt=%d", $time, col5, gencol_inst5.cnt);
+`endif
   assert(gencol_inst5.cnt == 173);
   assert(col5 == 128'b01101000011110110101111011011001000101101111010001100101000010011011011010011101001111111011111100000101001101111100011101110011);
 end
@@ -157,7 +167,9 @@ end
 
 initial begin
   #299; @(posedge clk); #0.01;
+`ifdef VERBOSE
   $display("t=%t col6=%b cnt=%d", $time, col6, gencol_inst6.cnt);
+`endif
   assert(gencol_inst6.cnt == 174);
   assert(col6 == 128'b00110100001111011010111101101100100010110111101000110010100001001101101101001110100111111101111110000010100110111110001110111001);
 end
@@ -176,7 +188,9 @@ end
 
 initial begin
   #299; @(posedge clk); #0.01;
+`ifdef VERBOSE
   $display("t=%t col7=%b cnt=%d", $time, col7, gencol_inst7.cnt);
+`endif
   assert(gencol_inst7.cnt == 175);
   assert(col7 == 128'b00011010000111101101011110110110010001011011110100011001010000100110110110100111010011111110111111000001010011011111000111011100);
 end
@@ -192,8 +206,10 @@ initial begin \
   wait (gencol_inst``INST1.cnt == N); \
   #0.1 ref1 <= col``INST1; \
   #0.5; \
+`ifdef VERBOSE \
   $display("ref1=%b", ref1); \
   $display("ref2=%b", ref2); \
+`endif \
   assert(ref1 == ref2); \
 end
 `CHECK(2,1,2)
