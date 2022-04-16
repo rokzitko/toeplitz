@@ -1,18 +1,20 @@
-// Testbench for Toeplitz extractor
-// Rok Zitko, March 2022
+// Testbench for Toeplitz extractor (parallelized version)
+// Rok Zitko, April 2022
 
 `default_nettype none
 
 //`define VERBOSE
+//`define DEBUG
 
 timeunit 1ns;
 timeprecision 100fs;
 
-module tb;
+module tb_toeplitz_p;
 
 parameter BS = 64;
 parameter N = 256;
 parameter L = 128;
+parameter WIDTH = 2;
 parameter XSZ = N/BS;
 parameter YSZ = L/BS;
 
@@ -27,11 +29,11 @@ initial begin
  reset <= 0;
 end
 
-reg data;
+reg [WIDTH-1:0] data;
 wire [L-1:0] q;
 wire qstrobe;
 
-toeplitz #(.BS(BS), .N(N), .L(L)) inst(.clk, .reset, .data, .q, .qstrobe);
+toeplitz_p #(.BS(BS), .N(N), .L(L), .WIDTH(WIDTH)) inst(.clk, .reset, .data, .q, .qstrobe);
 
 reg qbit, qbiten;
 
@@ -46,7 +48,10 @@ reg [N-1:0] xx;
 integer cnt;
 always @(posedge clk) begin
   #0.1;
-  data = xx[(N-1)-cnt];
+  data = xx[(N-WIDTH)-cnt*WIDTH +: WIDTH];
+`ifdef DEBUG
+  $display("time=%t data=%b", $time, data);
+`endif
   cnt++;
 end
 
@@ -55,7 +60,10 @@ task load(input string fn);
   $readmemh(fn, x);
   xx = {>>{x}};
   cnt = 0;
-  #256;
+`ifdef DEBUG
+  $display("time=%t xx=%b", $time, xx);
+`endif
+  #128; // 256/WIDTH
 endtask
 
 initial begin
@@ -88,4 +96,4 @@ initial begin
   $finish;
 end
 
-endmodule: tb
+endmodule: tb_toeplitz_p
