@@ -19,13 +19,12 @@ output reg qstrobe // pulsed when q updated
 parameter XSZ = N/BS;
 parameter YSZ = L/BS;
 
-logic [N-1:0] row0;
 logic [N-1:0] rrow0;
 logic [L-1:0] col0;
-readrc #(.BS(BS), .N(N), .L(L)) readrc_inst(.row0, .rrow0, .col0);
+readrc #(.BS(BS), .N(N), .L(L)) readrc_inst(.rrow0, .col0);
 
 logic [L-1:0] col;
-gencol #(.BS(BS), .N(N), .L(L)) gencol_inst (.clk, .reset, .row0, .rrow0, .col0, .col);
+gencol #(.BS(BS), .N(N), .L(L)) gencol_inst (.clk, .reset, .rrow0, .col0, .col);
 
 reg [L-1:0] y;
 reg [L-1:0] ynew;

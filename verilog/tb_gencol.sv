@@ -25,16 +25,14 @@ initial begin
  reset <= 0;
 end
 
-logic [N-1:0] row0;
 logic [N-1:0] rrow0;
 logic [L-1:0] col0;
-readrc #(.BS(BS), .N(N), .L(L)) readrc_inst(.row0, .rrow0, .col0);
+readrc #(.BS(BS), .N(N), .L(L)) readrc_inst(.rrow0, .col0);
 
 initial begin
   $timeformat(-9, 2, " ns", 20);
   #0.5;
 `ifdef VERBOSE
-  $display(" row0=%b", row0);
   $display("rrow0=%b", rrow0);
   $display(" col0=%b", col0);
 `endif
@@ -53,7 +51,7 @@ end
 
 `ifdef INST1
 logic [L-1:0] col1;
-gencol #(.BS(BS), .N(N), .L(L), .STRIDE(1)) gencol_inst1 (.clk, .reset, .row0, .rrow0, .col0, .col(col1));
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(1)) gencol_inst1 (.clk, .reset, .rrow0, .col0, .col(col1));
 
 `ifdef VERBOSE
 always @(posedge clk) begin
@@ -72,7 +70,7 @@ end
 
 `ifdef INST2
 logic [L-1:0] col2;
-gencol #(.BS(BS), .N(N), .L(L), .STRIDE(2)) gencol_inst2 (.clk, .reset, .row0, .rrow0, .col0, .col(col2));
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(2)) gencol_inst2 (.clk, .reset, .rrow0, .col0, .col(col2));
 
 `ifdef VERBOSE
 always @(posedge clk) begin
@@ -91,7 +89,7 @@ end
 
 `ifdef INST3
 logic [L-1:0] col3;
-gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4)) gencol_inst3 (.clk, .reset, .row0, .rrow0, .col0, .col(col3));
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4)) gencol_inst3 (.clk, .reset, .rrow0, .col0, .col(col3));
 
 `ifdef VERBOSE
 always @(posedge clk) begin
@@ -110,7 +108,7 @@ end
 
 `ifdef INST4
 logic [L-1:0] col4;
-gencol #(.BS(BS), .N(N), .L(L), .STRIDE(2), .INDEX(1)) gencol_inst4 (.clk, .reset, .row0, .rrow0, .col0, .col(col4));
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(2), .INDEX(1)) gencol_inst4 (.clk, .reset, .rrow0, .col0, .col(col4));
 
 `ifdef VERBOSE
 always @(posedge clk) begin
@@ -129,7 +127,7 @@ end
 
 `ifdef INST5
 logic [L-1:0] col5;
-gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(1)) gencol_inst5 (.clk, .reset, .row0, .rrow0, .col0, .col(col5));
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(1)) gencol_inst5 (.clk, .reset, .rrow0, .col0, .col(col5));
 
 `ifdef VERBOSE
 always @(posedge clk) begin
@@ -148,7 +146,7 @@ end
 
 `ifdef INST6
 logic [L-1:0] col6;
-gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(2)) gencol_inst6 (.clk, .reset, .row0, .rrow0, .col0, .col(col6));
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(2)) gencol_inst6 (.clk, .reset, .rrow0, .col0, .col(col6));
 
 `ifdef VERBOSE
 always @(posedge clk) begin
@@ -167,7 +165,7 @@ end
 
 `ifdef INST7
 logic [L-1:0] col7;
-gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(3)) gencol_inst7 (.clk, .reset, .row0, .rrow0, .col0, .col(col7));
+gencol #(.BS(BS), .N(N), .L(L), .STRIDE(4), .INDEX(3)) gencol_inst7 (.clk, .reset, .rrow0, .col0, .col(col7));
 
 `ifdef VERBOSE
 always @(posedge clk) begin
