@@ -72,3 +72,5 @@ always @(posedge clk) begin
 end
 
 endmodule: toeplitz
+
+`default_nettype wire // turn implicit nets on again to avoid side-effects
