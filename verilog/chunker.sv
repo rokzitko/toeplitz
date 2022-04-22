@@ -1,16 +1,16 @@
 // Split blocks of L bits into blocks of M bits.
 // Warning: the input is not buffered, it is assumed constant for the duration of "chunking".
-// Rok Zitko, March 2022
+// Rok Zitko, March-April 2022
 
 module chunker #(
  parameter L = 128,
  parameter M = 32
 )
 (
-input clk,
-input reset,
-input [L-1:0] data_in,
-input strobe, // pulsed when data_in updated
+input wire clk,
+input wire reset,
+input wire [L-1:0] data_in,
+input wire strobe, // pulsed when data_in updated
 output reg [M-1:0] q,
 output reg valid // true when valid data in q
 );
