@@ -10,7 +10,7 @@ my $YSZ = $L/$BS;
 
 my $xstr = "";
 for (my $x = 0; $x < $XSZ; $x++) {
-   $xstr .= ($x != 0 ? ", " : "") . "r[$x]";
+   $xstr .= ($x != 0 ? ", " : "") . "rr[$x]";
 }
 
 my $ystr = "";
