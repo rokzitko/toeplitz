@@ -1,5 +1,6 @@
 // Split blocks of L bits into blocks of M bits.
-// Warning: the input is not buffered, it is assumed constant for the duration of "chunking".
+// Warning 1: the input is not buffered, it is assumed constant for the duration of "chunking".
+// Warning 2: there must be at least one clock cycle between valid being deasserted and strobe going active again.
 // Rok Zitko, March-April 2022
 
 `default_nettype none
