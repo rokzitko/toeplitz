@@ -2,6 +2,8 @@
 // Warning: the input is not buffered, it is assumed constant for the duration of "chunking".
 // Rok Zitko, March-April 2022
 
+`default_nettype none
+
 module chunker #(
  parameter L = 128,
  parameter M = 32
@@ -20,7 +22,8 @@ reg done, ready;
 
 parameter NR = L/M;
 
-always @(posedge clk) begin
+// reset is asynchronous
+always @(posedge clk or posedge reset) begin
   if (reset) begin
     q <= 0;
     valid <= 0;
@@ -34,6 +37,7 @@ always @(posedge clk) begin
         valid <= 1;
         l <= l+1;
       end else begin
+        q <= 0; // clear output for clarity; this is not strictly necessary
         valid <= 0;
         done <= 1;
       end
@@ -50,3 +54,5 @@ always @(posedge clk) begin
 end
 
 endmodule: chunker
+
+`default_nettype wire
