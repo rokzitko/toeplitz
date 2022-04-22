@@ -32,7 +32,7 @@ readrc #(.BS(BS), .N(N), .L(L)) readrc_inst(.rrow0, .col0);
 
 logic [L-1:0] col[WIDTH];
 genvar k;
-generate for (k = 0; k < WIDTH; k = k+1) begin
+generate for (k = 0; k < WIDTH; k = k+1) begin: gencol_loop
   gencol #(.BS(BS), .N(N), .L(L), .STRIDE(WIDTH), .INDEX(k)) gencol_inst (.clk, .reset, .rrow0, .col0, .col(col[WIDTH-1-k])); // !!
 end
 endgenerate
@@ -78,3 +78,5 @@ always @(posedge clk) begin
 end
 
 endmodule: toeplitz_p
+
+`default_nettype wire // turn implicit nets on again to avoid side-effects
