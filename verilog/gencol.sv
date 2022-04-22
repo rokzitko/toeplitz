@@ -1,6 +1,8 @@
 // Generate successive columns of the Toeplitz matrix
 // Rok Zitko, March-April 2022
 
+`default_nettype none
+
 module gencol #(
  parameter BS = 64,
  parameter N = 256,
@@ -39,3 +41,5 @@ always @(posedge clk) begin
 end
 
 endmodule: gencol
+
+`default_nettype wire
