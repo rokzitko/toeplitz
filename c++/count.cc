@@ -1,7 +1,7 @@
 // Simple tool that generates counter output
 // The counting interval and step are controlled by -b, -e and -s switches (begin, end, step)
-// The output formatting is selected by -6 (binary in 64 chunks), -d (decimal) and -h (hexadecimal)
-// Rok Zitko, March 2022
+// The output formatting is selected by -6 (binary in 64 bit chunks), -3 (binary in 32 bit chunks), -d (decimal) and -h (hexadecimal)
+// Rok Zitko, March-June 2022
 
 #include <iostream>
 #include <string>
@@ -36,8 +36,14 @@ int main(int argc, char *argv[])
   const uint64_t end = (input.exists("-e") ? std::stol(input.get("-e")) : std::numeric_limits<uint64_t>::max());
   const uint64_t step = (input.exists("-s") ? std::stol(input.get("-s")) : 1);
   const bool bin64 = input.exists("-6");
+  const bool bin32 = input.exists("-3");
   const bool dec = input.exists("-d");
   const bool hex = input.exists("-h");
+  const int sum = (bin64 ? 1 : 0) + (bin32 ? 1 : 0) + (dec ? 1 : 0) + (hex ? 1 : 0);
+  if (sum != 1) {
+    std::cerr << "ERROR: Choose one out of -6, -3, -d and -h." << std::endl;
+    exit(1);
+  }
 
   for (uint64_t i = begin; i != end; i += step) {
     if (dec)
@@ -46,5 +52,9 @@ int main(int argc, char *argv[])
       std::cout << std::hex << i << std::endl;
     if (bin64)
       std::cout.write((char*)&i, sizeof(uint64_t));
+    if (bin32) {
+      const uint32_t tmp = i;
+      std::cout.write((char*)&tmp, sizeof(uint32_t));
+    }
   }
 }
