@@ -18,3 +18,11 @@ diff OUT2.dat OUT.ref
 
 ./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat -i INPUT.dat -o OUT3.dat 2>log3
 diff OUT3.dat OUT.ref
+
+dd if=/dev/zero of=zeros.bin bs=1024 count=1 2>/dev/null
+./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <zeros.bin >zeros-res.bin 2>log0
+diff zeros-res.bin zeros-res.ref
+
+dd if=/dev/zero bs=1024 count=1  2>/dev/null | tr "\000" "\377" >ones.bin
+./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <ones.bin >ones-res.bin 2>log0
+diff ones-res.bin ones-res.ref
