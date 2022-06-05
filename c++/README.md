@@ -21,3 +21,17 @@ Note that in transforming bit arrays into uint64_t, the most-significant bit com
 
 The tool comes with a test script and reference results to check the validy of the calculation.
 There is also a Mathematica notebook which generates the reference data.
+
+Files:
+
+toeplitz.cc - source code of the tool
+count.cc - source code of a generator of sequences for testing purposes
+toeplitz.nb - Mathematica notebook for generating reference results
+c.dat, r.dat: random values for columns and rows for matrix m
+m64.dat: explicit matrix representation of m, in the form of 64bit integers
+x.bin - test vector
+y.bin - test result
+test - runs tests: produces no output if all tests pass
+OUT.ref, OUT32.ref - reference results for counter test
+Makefile - make file for building tools & cleaning up
+README.md - this file
