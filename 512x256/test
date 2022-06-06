@@ -1,0 +1,4 @@
+#!/bin/sh
+#dd if=/dev/zero bs=1024 count=1  2>/dev/null | tr "\000" "\377" >ones.bin
+../c++/toeplitz -v -n 512 -l 256 -r r.dat -c c.dat <ones.bin >ones-res.bin 2>log0
+diff ones-res.bin ones-res.ref
