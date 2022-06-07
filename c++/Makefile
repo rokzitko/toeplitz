@@ -10,6 +10,7 @@ count: count.cc
 
 clean:
 	rm -f log? INPUT.dat OUT?.dat
-	rm -f INPUT32.dat OUT32.dat
+	rm -f INPUT32.dat INPUT32x.dat OUT32.dat OUT32x.dat
+	rm -f INPUT64.dat INPUT64x.dat OUT64.dat OUT64x.dat
 	rm -f y.dat y2.dat
 	rm -f toeplitz count

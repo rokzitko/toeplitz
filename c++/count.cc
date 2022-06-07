@@ -1,6 +1,7 @@
 // Simple tool that generates counter output
 // The counting interval and step are controlled by -b, -e and -s switches (begin, end, step)
 // The output formatting is selected by -6 (binary in 64 bit chunks), -3 (binary in 32 bit chunks), -d (decimal) and -h (hexadecimal)
+// Bit-order may be reversed.
 // Rok Zitko, March-June 2022
 
 #include <iostream>
@@ -44,16 +45,19 @@ int main(int argc, char *argv[])
     std::cerr << "ERROR: Choose one out of -6, -3, -d and -h." << std::endl;
     exit(1);
   }
+  const bool bswap = input.exists("-x");
 
   for (uint64_t i = begin; i != end; i += step) {
     if (dec)
       std::cout << std::dec << i << std::endl;
     if (hex)
       std::cout << std::hex << i << std::endl;
-    if (bin64)
-      std::cout.write((char*)&i, sizeof(uint64_t));
+    if (bin64) {
+      const uint64_t tmp = bswap ? __builtin_bswap64(i) : i;
+      std::cout.write((char*)&tmp, sizeof(uint64_t));
+    }
     if (bin32) {
-      const uint32_t tmp = i;
+      const uint32_t tmp = bswap ? __builtin_bswap32(i) : i;
       std::cout.write((char*)&tmp, sizeof(uint32_t));
     }
   }

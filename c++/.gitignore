@@ -3,8 +3,10 @@ toeplitz
 log?
 INPUT.dat
 OUT?.dat
-INPUT32.dat
-OUT32.dat
+INPUT32*.dat
+OUT32*.dat
+INPUT64*.dat
+OUT64*.dat
 .DS_Store
 y2.dat
 ones*.bin

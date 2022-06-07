@@ -1,23 +1,32 @@
 #!/bin/sh
+
 ./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <x.bin >y.dat 2>log0
 diff y.dat y.bin
 
 ./toeplitz -v -n 256 -l 128 -m m64.dat <x.bin >y2.dat 2>log0
 diff y2.dat y.bin
 
-./count -b 0 -e 1024 -6 >INPUT.dat
-./toeplitz -v -n 256 -l 128 -m m64.dat <INPUT.dat >OUT1.dat 2>log1
-diff OUT1.dat OUT.ref
+./count -b 0 -e 1024 -6 >INPUT64.dat
+./toeplitz -v -n 256 -l 128 -m m64.dat <INPUT64.dat >OUT64.dat 2>log1
+diff OUT64.dat OUT64.ref
+
+./count -b 0 -e 1024 -6 -x >INPUT64x.dat
+./toeplitz -v -n 256 -l 128 -m m64.dat <INPUT64x.dat >OUT64x.dat 2>log1
+diff OUT64x.dat OUT64x.ref
 
 ./count -b 0 -e 1024 -3 >INPUT32.dat
 ./toeplitz -v -n 256 -l 128 -m m64.dat <INPUT32.dat >OUT32.dat 2>log1
 diff OUT32.dat OUT32.ref
 
-./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <INPUT.dat >OUT2.dat 2>log2
-diff OUT2.dat OUT.ref
+./count -b 0 -e 1024 -3 -x >INPUT32x.dat
+./toeplitz -v -n 256 -l 128 -m m64.dat <INPUT32x.dat >OUT32x.dat 2>log1
+diff OUT32x.dat OUT32x.ref
 
-./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat -i INPUT.dat -o OUT3.dat 2>log3
-diff OUT3.dat OUT.ref
+./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <INPUT64.dat >OUT2.dat 2>log2
+diff OUT2.dat OUT64.ref
+
+./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat -i INPUT64.dat -o OUT3.dat 2>log3
+diff OUT3.dat OUT64.ref
 
 dd if=/dev/zero of=zeros.bin bs=1024 count=1 2>/dev/null
 ./toeplitz -v -n 256 -l 128 -r r.dat -c c.dat <zeros.bin >zeros-res.bin 2>log0
