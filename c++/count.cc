@@ -1,7 +1,7 @@
 // Simple tool that generates counter output
 // The counting interval and step are controlled by -b, -e and -s switches (begin, end, step)
 // The output formatting is selected by -6 (binary in 64 bit chunks), -3 (binary in 32 bit chunks), -d (decimal) and -h (hexadecimal)
-// Bit-order may be reversed.
+// Byte-order in words may be reversed using -x
 // Rok Zitko, March-June 2022
 
 #include <iostream>
