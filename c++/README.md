@@ -1,7 +1,7 @@
-# toeplitz - C++ implementation of Toeplitz entropy extractor (privacy amplification)
+## C++ implementation of Toeplitz entropy extractor (privacy amplification)
 
-This tool computes $y=m.x$, where $m$ is an $l \times  n$ Toeplitz matrix, $x$ is a dimension $n$ input vector,
-and $y$ is a dimension $l$ output vector.
+This tool computes $y=m.x$, where $m$ is an $l \times  n$ Toeplitz matrix, $x$ is a length $n$ input vector,
+and $y$ is a length $l$ output vector.
 
 The input is expected to be given in blocks of `BS=64` bits (`uint64_t`), thus $n$ and $l$ need to be
 multiples of 64.
